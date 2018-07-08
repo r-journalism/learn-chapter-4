@@ -47,9 +47,9 @@ Or you can execute the following commands in the console to bring up the files.
 
 To view the local html version of the .rmd files, you can try the following commands in your console to see rendered version of the sub-chapter:
 
-* `browseURL("charts_with_ggplot/charts_with_ggplot.Rmd")`
-* `browseURL("customizing_charts/customizing_charts.Rmd")`
-* `browseURL("more_charts/more_charts.Rmd")`
+* `browseURL("charts_with_ggplot/charts_with_ggplot.html")`
+* `browseURL("customizing_charts/customizing_charts.html")`
+* `browseURL("more_charts/more_charts.html")`
 
 
 ----
