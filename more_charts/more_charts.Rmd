@@ -8,8 +8,6 @@ output:
     toc_float: true
 ---
 
-This is from the [fourth chapter](http://learn.r-journalism.com/en/visualizing/more_charts/fancy-charts/) of [learn.r-journalism.com](https://learn.r-journalism.com/).
-
 
 We're going to go over some examples of visualizations created with packages that people have created to build on top of **ggplot2**. People love improving and building upon things. The latest version of **ggplot2** was released recently and more than [300 people contributed](https://twitter.com/hadleywickham/status/1014514026208989185)-- either by adding pieces from their add-on packages or by suggesting fixes.
 
@@ -38,6 +36,24 @@ head(temps)
 
 # If you don't have readr installed yet, uncomment and run the line below
 # install.packages("lubridate")
+
+# If you don't have lubridate installed yet uncomment the line below and run it
+#install.packages("lubridate")
+
+# NOTE: IF YOU GET AN ERROR ABOUTZ NOT HAVING A PACKAGE CALLED stringi
+# UNCOMMENT AND RUN THE LINES BELOW IF YOU HAVE A WINDOWS MACHINE
+
+#install.packages("glue", type="win.binary")
+#install.packages("stringi", type="win.binary")
+#install.packages("stringr", type="win.binary")
+#install.packages("lubridate", type="win.binary")
+
+# UNCOMMENT AND RUN THE LINES BELOW IF YOU HAVE A MAC MACHINE
+
+#install.packages("glue", type="mac.binary")
+#install.packages("stringi", type="mac.binary")
+#install.packages("stringr", type="mac.binary")
+#install.packages("lubridate", type="mac.binary")
 
 library(lubridate)
 
@@ -260,9 +276,46 @@ na.omit(rogers) %>% ggplot(aes(x=episodenumbers)) + geom_bar(aes(fill = factor(c
 
 ## Time is a flat circle
 
-This visualization is by John Muyskens of the Washington Post. He created this exploratory graphic using school shootings data before refining it in D3 and [publishing it](https://www.washingtonpost.com/graphics/2018/local/school-shootings-database/?utm_term=.2974624f1071).
+This visualization is by John Muyskens of the Washington Post. He created this [exploratory graphic](https://gist.github.com/jmuyskens/80b277db4c0606c9d4c4a9b8db730975) using school shootings data before refining it in D3 and [publishing it](https://www.washingtonpost.com/graphics/2018/local/school-shootings-database/).
+
 
 ```{r john_data_code, fig.width=8, fig.height=8, warning=F, message=F}
+# uncomment and run the lines below to install the right packages
+
+#install.packages("ggbeeswarm")
+#devtools::install_github("AliciaSchep/gglabeller") 
+#install.packages("scales")
+#install.packages("readr")
+
+library(ggbeeswarm)
+library(gglabeller)
+library(scales)
+
+library(readr)
+
+data <- read_csv("https://github.com/washingtonpost/data-school-shootings/raw/master/school-shootings-data.csv", 
+  col_types = cols(date = col_date(format = "%m/%d/%Y")))
+
+theeeeme <- theme_minimal() + theme(
+  axis.text.y=element_blank(), 
+  axis.ticks=element_blank(), 
+  axis.line.y=element_blank(),
+  panel.grid=element_blank())
+
+ggplot(data, aes(date, 0, size=enrollment)) +
+  geom_beeswarm(method = "frowney", groupOnX=FALSE, dodge.width=0.5, alpha=0.5) +
+  scale_size_area(max_size = 8) +
+  scale_x_date(date_breaks="1 year", labels=date_format("%Y"), limits=as.Date(c('1998-04-01', '2023-04-01'))) +
+  scale_y_continuous(limits=c(-20, 10)) +
+  coord_polar(direction = -1) +
+  theeeeme
 
 ```
+
+The final [published version]((https://www.washingtonpost.com/graphics/2018/local/school-shootings-database/?utm_term=.2974624f1071)):
+
+![](images/shootings.png)
+
+
+
 
