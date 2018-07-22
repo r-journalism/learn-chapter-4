@@ -2,6 +2,15 @@
 
 These files and folders are meant to accompany the third chapter from the [https://learn.r-journalism.com](learn.r-journalism.com) class.
 
+PDFs, r markdown files, and r scripts representing each lesson are provided. There are also exercises to practice the code you’ve learned.
+ 
+There is no “correct” way to follow along with this course aside from the quiz and completing the assignments in the discussion forums.
+ 
+Approach these lessons at your own pace and with whichever combination works best for your situation.
+ 
+----
+
+
 The quickest way to access the data for this chapter is to 1) make sure your current project directory is logically organized. 
 
 Hopefully, you've created folder on your computer in your `Documents` folder called `learning-r` or something like that.
@@ -53,3 +62,31 @@ To view the local html version of the .rmd files, you can try the following comm
 
 
 ----
+
+
+
+----
+
+## Test yourself
+
+There are links to exercise what you've learned spread through out this section.
+
+It's possible to run these files locally to test yourself if you've downloaded the files for the chapter as instructed above.
+
+Make sure your project directory is correct and then run these lines in the console:
+
+
+```
+install.packages("learnr")
+install.packages("rmarkdown")
+install.packages("tidyverse")
+install.packages("ggrepel")
+install.packages("wesanderson")
+```
+
+and then
+
+```
+rmarkdown::run("chapter-4/index.Rmd")
+```
+
