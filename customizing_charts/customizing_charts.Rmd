@@ -1,14 +1,16 @@
 ---
 title: "Customizing charts"
 author: "Andrew Ba Tran"
-description: "http://learn.r-journalism.com/en/visualizing/"
 output:
+  pdf_document:
+    toc: yes
   html_document:
-    toc: true
-    toc_float: true
+    toc: yes
+    toc_float: yes
+description: http://learn.r-journalism.com/en/visualizing/
 ---
 
-This is from the [fourth chapter](http://learn.r-journalism.com/encustomizing-exporting-ggplot2/) of [learn.r-journalism.com](https://learn.r-journalism.com/).
+This is from the [fourth chapter](http://learn.r-journalism.com/en/visualizing/customizing_charts/customizing-exporting-ggplot2/) of [learn.r-journalism.com](https://learn.r-journalism.com/).
 
 
 Let's bring that data back in again.
@@ -42,7 +44,13 @@ The easiest way to do this is with the package [**forcats**](https://forcats.tid
 
 The function is `fct_reorder()` and it works like this
 
-![](images/fct_reorder.png)
+
+
+```{r img1, echo = F, out.width="100%"}
+library(knitr)
+include_graphics("images/fct_reorder.png")
+```
+
 
 
 ```{r dotplot2, fig.width=8, fig.height=8}
@@ -66,7 +74,6 @@ ggplot(ages,
        aes(x=actress_age, y=fct_reorder(Movie, actress_age, desc=TRUE))) +
   geom_segment(
        aes(x = 0,
-           y=fct_reorder(Movie, actress_age, desc=TRUE),
            xend = actress_age,
            yend = fct_reorder(Movie, actress_age, desc=TRUE)),
            color = "gray50") +
@@ -75,7 +82,7 @@ ggplot(ages,
 
 Looking interesting, right?
 
-If we wanted to publish this on a website or share on social media, we'll need to clean up the labels and add a title and add a sourceline.
+If we wanted to publish this on a website or share on social media, we'll need to clean up the labels and add a title and add a source line.
 
 That's easy to do. 
 
@@ -169,7 +176,11 @@ ggsave("actress_ages.png")
 
 How's it look?
 
-![](actress_ages.png)
+```{r img2, echo = F, out.width="100%"}
+include_graphics("images/actress_ages.png")
+```
+
+
 
 Ew, okay. Needs some adjustment. I guess we can't go with the default display for this particular chart.
 
@@ -177,7 +188,10 @@ Ew, okay. Needs some adjustment. I guess we can't go with the default display fo
 ggsave("actress_ages_adjusted.png", width=20, height=30, units="cm")
 ```
 
-![](actress_ages_adjusted.png)
+```{r img3, echo = F, out.width="100%"}
+include_graphics("images/actress_ages_adjusted.png")
+```
+
 
 Much better!
 
@@ -208,8 +222,10 @@ ggplot(ages_reordered) +
        subtitle = "for R for Journalists class",
        caption = "Data from Vulture.com and IMDB") +
   theme_minimal() +
-  geom_text(aes(x=actress_age, y=Movie, label=actress_age), hjust=ifelse(ages$actress_age<ages$actor_age, 2, -.5)) +
-  geom_text(aes(x=actor_age, y=Movie, label=actor_age), hjust=ifelse(ages$actress_age<ages$actor_age, -.5, 2)) +
+  geom_text(aes(x=actress_age, y=Movie, label=actress_age),
+            hjust=ifelse(ages$actress_age<ages$actor_age, 1.5, -.5)) +
+  geom_text(aes(x=actor_age, y=Movie, label=actor_age),
+            hjust=ifelse(ages$actress_age<ages$actor_age, -.5, 1.5)) +
   theme(panel.border = element_blank(), 
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(), 
@@ -282,7 +298,8 @@ avg_age <- ages %>%
 ggplot(avg_age, aes(x=actor, y=average_age_diff, fill=actor)) + 
   geom_bar(stat="identity") +
   theme(legend.position="none") + # This removes the legend
-  scale_fill_manual(values=c("aquamarine", "darkorchid", "deepskyblue2", "lemonchiffon2", "orange", "peachpuff3", "tomato"))
+  scale_fill_manual(values=c("aquamarine", "darkorchid", "deepskyblue2", "lemonchiffon2",
+                             "orange", "peachpuff3", "tomato"))
 ```
 You can also specify a color palette using `scale_fill_brewer()` or `scale_color_brewer()`
 
@@ -350,6 +367,17 @@ https://cran.r-project.org/web/packages/ggthemes/vignettes/ggthemes.html).
 
 It's not difficult to make your own. It's just time consuming.
 
-It involves tseaking every little detail, like text, and colors, and how the grids should look.
+It involves tweaking every little detail, like text, and colors, and how the grids should look.
 
 Check out the [theme](https://github.com/associatedpress/aptheme/blob/master/R/theme_ap.R) that the Associated Press uses. They posted it on [their repo](https://github.com/associatedpress/aptheme) and by loading their own package, they can just add `theme_ap()` at the end of their charts to transform it to AP style.
+
+
+----
+
+## Your turn
+
+Challenge yourself with [these exercises](http://code.r-journalism.com/chapter-4/#section-customizing-charts) so you'll retain the knowledge of this section.
+
+Instructions on how to run the exercise app are on the [intro page](https://learn.r-journalism.com/en/visualizing/) to this section.
+
+

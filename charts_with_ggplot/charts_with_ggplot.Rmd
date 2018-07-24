@@ -1,16 +1,27 @@
 ---
 title: "Charts with ggplot2"
 author: "Andrew Ba Tran"
-description: "http://learn.r-journalism.com/en/visualizing/"
 output:
   html_document:
-    toc: true
-    toc_float: true
+    toc: yes
+    toc_float: yes
+description: http://learn.r-journalism.com/en/visualizing/
 ---
 
 
 
 This is from the [fourth chapter](http://learn.r-journalism.com/en/visualizing/charts_with_ggplot/ggplot2/) of [learn.r-journalism.com](https://learn.r-journalism.com/).
+
+---
+title: "Charts with ggplot2"
+description: "Applying the grammar of graphics to data visualizations"
+author: "Andrew Ba Tran"
+date: 2018-05-27T21:13:14-05:00
+categories: ["R"]
+tags: ["R", "ggplot2"]
+weight: 1
+slug: ggplot2
+---
 
 Let's load some data, create a chart, and break down the layers.
 
@@ -39,7 +50,7 @@ library(ggplot2)
 ggplot(data=ages) +
    geom_point(mapping=aes(x=actor_age, y=actress_age)) + 
    expand_limits(x = 0, y = 0) +
-   geom_abline(intercept=1, col="light gray") 
+   geom_abline(intercept=0, col="light gray") 
 
 ```
 
@@ -47,20 +58,33 @@ What's this chart show? Men tend to be much older than women in movies.
 
 Let's break the components of this chart down.
 
-![](images/gg1.png)
 
-We start with with the **data frame**. We initialized the dataviz function `ggplot()` by passing the **ages** data frame to it.
+```{r img1, echo = F, out.width="100%"}
+library(knitr)
+include_graphics("images/gg1.png")
+```
 
 
-![](images/gg1c.png)
+We start with with the **data frame**. We initialized the data viz function `ggplot()` by passing the **ages** data frame to it.
 
-![](images/gg2.png)
+```{r img2, echo = F, out.width="100%"}
+include_graphics("images/gg1c.png")
+```
+
+```{r img3, echo = F, out.width="100%"}
+include_graphics("images/gg2.png")
+```
+
 
 Next, we have the dots representing the data we chose to visualize on the x and y axes.
 
 Mappings describe how aesthetics should relate to the variables in the data.
 
-![](images/gg2c.png)
+
+```{r img4, echo = F, out.width="100%"}
+include_graphics("images/gg2c.png")
+```
+
 
 Set the **aesthetics** (`aes()`) visual characteristics that represent your data.
 
@@ -77,7 +101,10 @@ For each **aesthetic**, we can set the **scales** for how visual characteristic 
 
 Let's take a look at the `geom_` function we add to `ggplot()`.
 
-![](images/gg2d.png)
+```{r img5, echo = F, out.width="100%"}
+include_graphics("images/gg2d.png")
+```
+
 
 Notice that **ggplot2** requires a plus between functions. 
 
@@ -89,11 +116,11 @@ If you're using ggplot: plus it!
 
 For everything else: pipe it!
 
-There's gotta be some mnemonic device to remember this, right? Someone let me know.
+```{r img6, echo = F, out.width="100%"}
+include_graphics("images/gg2e.png")
+```
 
 
-
-![](images/gg2e.png)
 
 So `geom_point()` is merely one type out of dozens of possible *geom_functions*, like `geom_bar()` or `geom_boxplot()`. 
 
@@ -105,14 +132,19 @@ This is basically all you need to create a chart in R. The `ggplot()` and the da
 
 But we added more instructions for clarity.
 
-![](images/gg3.png)
+```{r img7, echo = F, out.width="100%"}
+include_graphics("images/gg3.png")
+```
 
 The next line refers to some scaling options. 
 
 Scaling can also be passed to the `aes()` of the *geom_function* but can also apply to the entire chart. 
 
 
-![](images/gg3c.png)
+```{r img8, echo = F, out.width="100%"}
+include_graphics("images/gg3c.png")
+```
+
 In this chart, we used the `expand_limits()` function to force the x- and y-axis to start at 0.
 
 Otherwise, `ggplot()` would shift the scale so that the points in the chart fill up the entire chart. It assumes you don't want that extraneous white space that doesn't include data.
@@ -120,16 +152,26 @@ Otherwise, `ggplot()` would shift the scale so that the points in the chart fill
 But for this particular data, we want to emphasize the disparity in ages by starting at the zeroes. Plus, there is a large contingent of data visualization pros that might yell at you for not starting the base at zero (even though there might be some exceptions to that rule!).
 
 
-![](images/gg4.png)
+```{r img9, echo = F, out.width="100%"}
+include_graphics("images/gg4.png")
+```
+
+
 
 The last line in the stack of functions we have so far is the `ab_line()`. It's not necessary, but it's part of the layering options in **ggplot2**.
 
-![](images/gg4c.png)
+```{r img10, echo = F, out.width="100%"}
+include_graphics("images/gg4c.png")
+```
 
-Each function in **ggplot2** like `geom_abline()` allows for additional variables that can be passed to it. In this example, we specificy the intercept should be at 1 and the color of the bar should be "light gray". We accept the default width of the line by not passing it the variable to the `geom_abline()` at all.
 
 
-![](images/gg5.png)
+Each function in **ggplot2** like `geom_abline()` allows for additional variables that can be passed to it. In this example, we specify the intercept should be at 1 and the color of the bar should be "light gray". We accept the default width of the line by not passing it the variable to the `geom_abline()` at all.
+
+
+```{r img11, echo = F, out.width="100%"}
+include_graphics("images/gg5.png")
+```
 
 Okay, let's make some more charts. 
 
@@ -153,19 +195,27 @@ It seems like an obvious format, but not all data sets have this structure by de
 
 Recall the previous chapter when we were dealing with wide versus long data?
 
-![](images/wide.png)
+
+```{r img12, echo = F, out.width="100%"}
+include_graphics("images/wide.png")
+```
+
+
 
 The variables for each race are spread out into columns. 
 
 This looks great in a spreadsheet but it doesn't work well with **ggplot2** because it isn't tidy.
 
-![](images/long.png)
+```{r img13, echo = F, out.width="100%"}
+include_graphics("images/long.png")
+```
+
 
 That's better. Each row is a different variable. This way, we could add another variable for percent solved or total cases per metro and race.
 
 It's simply more versatile.
 
-Data works best in `ggplot()` in a tidy, long format.
+Data works best in `ggplot()` in a tidy, long (tall) format.
 
 ## Geoms
 
@@ -176,11 +226,11 @@ Let's go over some new `geom_` types.
 
 We'll start with `geom_bar()` which is the most common type of chart you'll need to make starting out.
 
-Notice that we are nesting `aes()` into `ggplot()` this time and not using the `method=` because it's not necesary.
+Notice that we are nesting `aes()` into `ggplot()` this time and not using the `method=` or the `data=` because they are not necessary.
 
 
 ```{r bar, fig.width=9, fig.height=5}
-ggplot(data=ages,
+ggplot(ages,
     aes(x=actor)) +
     geom_bar()
 ```
@@ -221,7 +271,11 @@ Here's a reminder that these are the aesthetic properties that can be set:
 * transparency
 * fill
 
-![](images/aes.png)
+
+```{r img14, echo = F, out.width="100%"}
+include_graphics("images/aes.png")
+```
+
 
 What if we changed the `aes()` from `fill` to `color`?
 
@@ -238,7 +292,13 @@ When would this be a good option? Line charts or dots.
 
 Notice how the color and legend was added automatically?
 
-![](images/autocolor.png)
+
+```{r img15, echo = F, out.width="100%"}
+include_graphics("images/autocolor.png")
+```
+
+
+
 This is the default color list. There are ways to customize the colors, but we'll go over that in the next section.
 
 Let's go back to `fill=Genre` but this time with a twist.
@@ -287,22 +347,6 @@ ggplot(data=ages,
 
 This type of chart allows for a greater understanding of the proportion compared to other groups.
 
-### geom_jitter
-
-So `geom_jitter()` is a way to show distribution. The location is grouped by the y, which in this instance is the actor. 
-
-```{r jitter}
-ggplot(ages, aes(x=actress_age, y=actor)) +
-  geom_jitter()
-```
-
-Let's throw in another variable into `aes()` from the data frame: Genre.
-
-```{r jitter2}
-ggplot(ages, aes(x=actress_age, y=actor, color=Genre)) +
-  geom_jitter()
-```
-
 ### Box plot
 
 You'll see this type of chart often in research papers.
@@ -347,7 +391,7 @@ Useful to transform or rescale the data with.
 
 ```{r scaling1, warning=F, message=F}
 ggplot(data=ages, aes(x=actor_age)) +
-  geom_histogram()
+  geom_histogram(binwidth=1)
 ```
 
 Common `geom_histogram()` options:
@@ -358,14 +402,14 @@ Common `geom_histogram()` options:
 
 **Applying a logorithmic scale**
 
-It makes more sense to apply scalar transformations to while plotting rather than altering the dataset itself.
+It makes more sense to apply scalar transformations to while plotting rather than altering the data set itself.
 
 ```{r scaling2}
 ggplot(data=ages, aes(x=actor_age)) +
   geom_histogram() + scale_x_log10()
 ```
 
-### Kernal density plot
+### Kernel density plot
 
 ```{r kernel, fig.width=9, fig.height=5}
 ggplot(data=ages,
@@ -422,6 +466,8 @@ ggplot(avg_age, aes(x=actor, y=average_age_diff, group=1)) +
 
 Does this make sense as a visualization? Mmm... nah.
 
+Never use a line chart to chart anything across an axis that doesn’t represent something continuous.
+
 Common `geom_point()` options:
 
 * color
@@ -444,7 +490,7 @@ ggplot(ages,
   geom_smooth()
 ```
 
-We can customize it and throw in a linear regression line.
+We can customize it and throw in a linear regression line. Notice the `~` which is used often in statistical analysis formulas.
 
 ```{r scatter_fit_lm}
 ggplot(ages,
@@ -554,7 +600,7 @@ ggplot(data = avg_age, aes(x= actor, y=average_age_diff)) +
 
 ## Facets
 
-Remember how that big scatterplot above had all the different colors on one viz and it was all clustered together?
+Remember how that big scatter plot above had all the different colors on one viz and it was all clustered together?
 
 It's simple to break those out into individual charts.
 
@@ -566,12 +612,16 @@ This is sometimes referred to as "small multiples".
 ggplot(data=ages) +
    geom_point(mapping=aes(x=actor_age, y=actress_age)) + 
    expand_limits(x = 0, y = 0) +
-   geom_abline(intercept=1, col="light gray") +
+   geom_abline(intercept=0, col="light gray") +
    facet_grid(Genre~actor)
 ```
 
 
 **Variable count:** 4! - We're working with *actor_age*, *actress_age*, *actor*, and also *Genre*.
+
+**Note**: Take a moment to appreciate how easy this was. This is a pain in the ass in other languages, like D3. 
+
+
 
 Want to add another variable? Let's do it. Add `size=budget` the `geom_point()`.
 
@@ -579,7 +629,7 @@ Want to add another variable? Let's do it. Add `size=budget` the `geom_point()`.
 ggplot(data=ages) +
    geom_point(mapping=aes(x=actor_age, y=actress_age, size=budget)) + 
    expand_limits(x = 0, y = 0) +
-   geom_abline(intercept=1, col="light gray") +
+   geom_abline(intercept=0, col="light gray") +
    facet_grid(Genre~actor)
 ```
 
@@ -601,7 +651,7 @@ Here are other types of ways to create "small multiples" through facets.
 ggplot(data=ages) +
    geom_point(mapping=aes(x=actor_age, y=actress_age)) + 
    expand_limits(x = 0, y = 0) +
-   geom_abline(intercept=1, col="light gray") +
+   geom_abline(intercept=0, col="light gray") +
    facet_grid(.~actor)
 ```
 
@@ -616,7 +666,7 @@ If it was swapped to `facet_wrap(actor~.)` then the grid will split by row.
 ggplot(data=ages) +
    geom_point(mapping=aes(x=actor_age, y=actress_age)) + 
    expand_limits(x = 0, y = 0) +
-   geom_abline(intercept=1, col="light gray") +
+   geom_abline(intercept=0, col="light gray") +
    facet_grid(actor~.)
 ```
 
@@ -628,7 +678,7 @@ I find myself using `facet_wrap()` more often because I can customize the number
 ggplot(data=ages) +
    geom_point(mapping=aes(x=actor_age, y=actress_age)) + 
    expand_limits(x = 0, y = 0) +
-   geom_abline(intercept=1, col="light gray") +
+   geom_abline(intercept=0, col="light gray") +
    facet_wrap(~actor, ncol=4)
 ```
 
@@ -680,11 +730,23 @@ ggplot(data=ages,
 
 We were able to use different data sets. Globally, we wanted to use the **ages** data frame because we were going to facet it.
 
-We needed a second data set without the *actor* variable to plot in a background layer and set the color manually to "grey". This was the first `geom_point()` layer referenced locally.
+We needed a second data set without the *actor* variable to plot in a background layer and set the color manually to "grey" (go back to the code above and this time put `color="grey"` in `aes()` and see the difference). This was the first `geom_point()` layer referenced locally.
 
 The second `geom_point()` built a scatter plot based on the global data set in `ggplot()`.
 
 This type of chart really improves on that first grouped scatter plot because it makes it easier to see each individual group in the context to the rest of the data.
+
+
+----
+
+## Your turn
+
+Challenge yourself with [these exercises](http://code.r-journalism.com/chapter-4/#section-ggplot2) so you'll retain the knowledge of this section.
+
+Instructions on how to run the exercise app are on the [intro page](https://learn.r-journalism.com/en/visualizing/) to this section.
+
+
+---
 
 ## Next steps
 
